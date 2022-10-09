@@ -17,10 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 
 from users import views as users_views
+from api import views as api_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('tasks.urls')),
+    path('api/', include('api.urls'),),
+    path('api/v1/', api_views.api_root, name='api-v1'),
     path("users/", include("django.contrib.auth.urls")),
     path('users/signup/', users_views.RegisterView.as_view(), name='register'),
 ]

@@ -40,7 +40,10 @@ INSTALLED_APPS = [
 
     'users.apps.UsersConfig',
     'tasks.apps.TasksConfig',
+    'api.apps.ApiConfig',
 
+    'rest_framework',
+    'django_filters',
     'crispy_forms',
 ]
 
@@ -134,3 +137,13 @@ LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
