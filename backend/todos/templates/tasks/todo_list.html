@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block task_list %}
+
+    <div class="form-inline">
+        <button type="submit" class="btn btn-primary mb-2 mx-auto">
+            <a href="{% url 'create-todo' %}" class="text-white">Add Todo</a>
+        </button>
+    </div>
+    
+    <hr>
+    
+    {% for todo in todos %}
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center bg-dark text-white">
+                {{ todo.title }}
+                
+                {% if todo.completed == True %}
+                    <p class="text-white">Completed</p>
+
+                    {% else %}
+                        <p class="text-white">Not completed</p>
+                {% endif %}
+                    
+                <div class="form-inline my-2 my-lg-0">
+                    <button class="btn btn-info mx-2">
+                        <a href="{% url 'update-todo' todo.pk %}" class="text-white">Update</a>
+                    </button>
+                    <button class="btn btn-danger">
+                        <a href="{% url 'delete-todo' todo.pk %}" class="text-white">Delete</a>
+                    </button>
+                </div>
+            </li>
+        </ul>
+    {% endfor %}
+    
+    <hr>
+    
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link bg-dark text-white" href="?page=1">&laquo; first</a></li>
+                <li class="page-item"><a class="page-link bg-dark text-white" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                <li class="page-item"><a class="page-link bg-dark text-white" href="#">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</a></li>
+            {% endif %}
+
+            {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link bg-dark text-white" href="?page={{ page_obj.next_page_number }}">next</a></li>
+                <li class="page-item"><a class="page-link bg-dark text-white" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a></li>
+            {% endif %}
+            
+        </ul>
+    </nav>
+    
+{% endblock task_list %}

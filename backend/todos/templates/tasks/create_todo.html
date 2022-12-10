@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block create_todo %}
+    
+    {% if user.is_authenticated %}
+    <h2 class="text-white">Create Todo</h2>
+    
+    <hr>
+    
+    <form method="post" action="{% url 'create-todo' %}">
+        {% csrf_token %}
+        <div class="col">
+            <div class="row text-white">
+                {{ form.title|as_crispy_field }}
+            </div>
+            <div class="row text-white">
+                {{ form.completed|as_crispy_field }}
+            </div>
+        </div>
+
+        <button class="btn btn-success" type="submit" class="text-white">Create</button>
+    </form>
+    {% else %}
+        <p>You are not logged in, Please click <a href="{% url 'login' %}" class="text-white">here</a> to login and add a todo!</p>
+    {% endif %}
+        
+{% endblock create_todo %}
