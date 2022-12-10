@@ -63,6 +63,3 @@ A project built with Django web framework and Bootstrap
 * Create a super user: ``` python manage.py createsuperuser ```
 
 * Run the project: ``` python manage.py runserver ```
-
-
-Preview on youtube: [Youtube](https://www.youtube.com/watch?v=3ieGGaWO_J8&list=PLtb0tG6zW4YtsyiseKOZ9DRwrPf6VjrPb&index=1)
