@@ -1,4 +1,3 @@
-from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -21,7 +20,6 @@ class ListTodo(LoginRequiredMixin, ListView):
 		return Todo.objects.filter(created_by=self.request.user)
 
 
-
 class CreateTodo(LoginRequiredMixin, CreateView):
 	model = Todo
 	fields = ['title', 'completed']
@@ -37,16 +35,13 @@ class UpdateTodo(LoginRequiredMixin, UserPassesTestMixin,UpdateView):
 	fields = ['title', 'completed']
 	template_name = 'tasks/update_todo.html'
 	success_url = reverse_lazy('list-todo')
-
-	def form_valid(self, form):
-		form.instance.created_by == self.request.user
-		return super().form_valid(form)
 	
 	def test_func(self):
 		todo = self.get_object()
 		if self.request.user == todo.created_by:
 			return True
-		return False
+		else:
+			return False
 
 
 class DeleteTodo(LoginRequiredMixin, UserPassesTestMixin,DeleteView):
@@ -58,4 +53,5 @@ class DeleteTodo(LoginRequiredMixin, UserPassesTestMixin,DeleteView):
 		todo = self.get_object()
 		if self.request.user == todo.created_by:
 			return True
-		return False
+		else:
+			return False
